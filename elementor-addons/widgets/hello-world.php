@@ -57,6 +57,7 @@ class ZAHID_Elementor_Addon_Hello_World extends \Elementor\Widget_Base
 
 		<p> <?php echo $settings['title']; ?> </p>
 
+
 		<?php
 }
 }
