@@ -317,3 +317,86 @@ class Hover_Team_Members extends \Elementor\Widget_Base
         <?php
     }
 }
+
+
+
+class Zahid_Unsplash extends \Elementor\Widget_Base
+
+{
+
+    public function get_name()
+    {
+        return 'zahid_unsplash';
+    }
+
+    public function get_title()
+    {
+        return esc_html__('Zahid Unsplash', 'elementor-addon');
+    }
+
+    public function get_icon()
+    {
+        return 'eicon-code';
+    }
+
+    public function get_categories()
+    {
+        return ['basic'];
+    }
+
+    protected function _register_controls()
+    {
+        $this->start_controls_section(
+            'Content',
+            [
+                'label' => esc_html__('Content', 'elementor-addon'),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
+
+
+        $this->end_controls_section();
+    }
+
+    protected function render()
+    {
+        $settings = $this->get_settings_for_display();
+        ?>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+        <div id="app">
+            <div class="photos grid grid-cols-3 gap-4">
+                <div class="photo" v-for="photo in photos">
+                    <div class="photo-wrapper">
+                        <img class="" :src="photo.urls.small" :alt="photo.alt_description">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const { createApp } = Vue
+
+            createApp({
+                data() {
+                    return {
+                        photos: []
+                    }
+                },
+                mounted(){
+                    fetch('https://api.unsplash.com/photos/?client_id=rsGN_JqLGX2MQB1HB4FxDwxqKumm03FATX1k4MGQ_aM')
+                        .then(response => response.json())
+                        .then(data => {
+                            this.photos = data
+                            console.log(this.photos)
+                        })
+                }
+            }).mount('#app')
+        </script>
+
+        <?php
+    }
+}
